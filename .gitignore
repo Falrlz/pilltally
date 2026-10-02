@@ -1,0 +1,98 @@
+# ==========================================
+# Environment Variables & Secrets
+# ==========================================
+.env
+.env.local
+*.env
+!.env.example
+
+# ==========================================
+# Python & Virtual Environments
+# ==========================================
+.venv/
+venv/
+env/
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+
+# ==========================================
+# Datasets & Large Data (Preserve folders via .gitkeep)
+# ==========================================
+ml/data/raw/**
+!ml/data/raw/**/
+!ml/data/raw/**/.gitkeep
+ml/data/splits/**
+!ml/data/splits/**/
+!ml/data/splits/**/.gitkeep
+*.zip
+*.tar
+*.tar.gz
+
+# ==========================================
+# Model Weights & Training Checkpoints
+# ==========================================
+*.pt
+*.pth
+*.onnx
+*.engine
+runs/
+ml/runs/
+pilltally_runs/
+
+# ==========================================
+# MLflow Artifacts & Databases
+# ==========================================
+mlruns/
+ml/mlruns/
+mlruns.db
+ml/mlruns.db
+*.db
+*.sqlite
+.trash/
+
+# ==========================================
+# Reports & Generated Visualizations
+# ==========================================
+ml/reports/eda/*
+!ml/reports/eda/**/.gitkeep
+ml/reports/eval/*
+!ml/reports/eval/**/.gitkeep
+reports/eda/*
+!reports/eda/**/.gitkeep
+reports/eval/*
+!reports/eval/**/.gitkeep
+
+# ==========================================
+# Frontend & Node.js (App Directory)
+# ==========================================
+node_modules/
+.next/
+out/
+build/
+dist/
+.turbo/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# ==========================================
+# Local Documentation & Internal Notes
+# ==========================================
+docs/
+
+# ==========================================
+# IDE & Operating System Files
+# ==========================================
+.DS_Store
+Thumbs.db
+desktop.ini
+.vscode/
+.idea/
+*.swp
+*.swo
