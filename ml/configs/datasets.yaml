@@ -23,15 +23,3 @@ roboflow_datasets:
     project: "pill-detection-tbmmm"
     version: 22
     format: "yolo26"
-
-  - name: "tablet defect detection.v3i.yolo26"
-    workspace: "fyp-qjwy0"
-    project: "tablet-defect-detection-er87f"
-    version: 3
-    format: "yolo26"
-
-  - name: "Pill Detection.v6i.yolo26"
-    workspace: "placement-2023-9jdtv"
-    project: "pill-detection-rfmyx"
-    version: 6
-    format: "yolo26"
