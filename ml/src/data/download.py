@@ -20,7 +20,7 @@ from src.utils.logger import get_logger
 
 # Load environment variables
 load_dotenv()
-logger = get_logger("pill-tally.download")
+logger = get_logger("pilltally.download")
 
 # Base directory paths
 BASE_DIR = Path(__file__).resolve().parents[2]
@@ -164,7 +164,7 @@ def run_dry_run(config: DatasetsConfig, api_key: str) -> bool:
     """Validate all endpoints and credentials without downloading large files."""
 
     logger.info("=" * 60)
-    logger.info("Pill-Tally: Pre-flight Verification (Dry Run)")
+    logger.info("PillTally: Pre-flight Verification (Dry Run)")
     logger.info("=" * 60)
 
     all_passed = True
@@ -204,7 +204,7 @@ def run_sample_test(config: DatasetsConfig, raw_dir: Path, api_key: str):
     """Run pre-flight check, then download the smallest sample dataset for end-to-end verification."""
 
     logger.info("=" * 60)
-    logger.info("Pill-Tally: End-to-End Sample Test Mode")
+    logger.info("PillTally: End-to-End Sample Test Mode")
     logger.info("=" * 60)
 
     if not run_dry_run(config, api_key):
@@ -249,7 +249,7 @@ def run_sample_test(config: DatasetsConfig, raw_dir: Path, api_key: str):
 # ---------------------------------------------------------------------------
 def parse_args():
     parser = argparse.ArgumentParser(
-        description="Pill-Tally Dataset Acquisition Pipeline"
+        description="PillTally Dataset Acquisition Pipeline"
     )
     parser.add_argument(
         "--dry-run",
@@ -303,7 +303,7 @@ def main():
             return
 
     logger.info("=" * 60)
-    logger.info("Pill-Tally: Dataset Acquisition Pipeline")
+    logger.info("PillTally: Dataset Acquisition Pipeline")
     logger.info("=" * 60)
 
     status: dict[str, str] = {}
