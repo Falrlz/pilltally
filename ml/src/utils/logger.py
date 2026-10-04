@@ -7,7 +7,7 @@ import logging
 from rich.logging import RichHandler
 
 
-def get_logger(name: str = "pill-tally", level: int = logging.INFO) -> logging.Logger:
+def get_logger(name: str = "pilltally", level: int = logging.INFO) -> logging.Logger:
     """Get or configure a logger with Rich console handler."""
 
     logger = logging.getLogger(name)
