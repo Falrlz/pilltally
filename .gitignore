@@ -56,16 +56,11 @@ ml/mlruns.db
 .trash/
 
 # ==========================================
-# Reports & Generated Visualizations
+# Pipeline Outputs (EDA, training runs, MLflow)
 # ==========================================
-ml/reports/eda/*
-!ml/reports/eda/**/.gitkeep
-ml/reports/eval/*
-!ml/reports/eval/**/.gitkeep
-reports/eda/*
-!reports/eda/**/.gitkeep
-reports/eval/*
-!reports/eval/**/.gitkeep
+ml/outputs/**
+!ml/outputs/**/
+!ml/outputs/**/.gitkeep
 
 # ==========================================
 # Frontend & Node.js (App Directory)

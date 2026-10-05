@@ -1,8 +1,7 @@
 # ==============================================================================
-# Dataset Configuration
+# Dataset Configuration (download pipeline)
+# Datasets are saved to data/raw/<name>/ (see src/utils/paths.py).
 # ==============================================================================
-
-raw_dir: "data/raw"
 
 # Direct download archives
 direct_datasets:

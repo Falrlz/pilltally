@@ -21,10 +21,13 @@
 
 | Phase | Status |
 | ----- | ------ |
-| 1. Download & Store | ✅ Done (`ml/src/data/download.py`) |
-| 2. EDA | ✅ Done (`ml/notebooks/01_exploratory_data_analysis.ipynb`) |
-| 3. Combine & Split | 📝 Planned |
-| 4–8. Augmentation, Training, Evaluation, Export, Verification | ⏳ Not started |
+| 1. Download | ✅ Done (`pipelines/download_pipeline.py`) |
+| 2. EDA | ✅ Done (`notebooks/01_exploratory_data_analysis.ipynb`) |
+| 3. Data preparation (combine & split) | ✅ Done (`pipelines/data_prep_pipeline.py`) |
+| 4. Training (yolo26n + MLflow) | 🛠️ Code ready, sanity run done; full training pending (needs GPU) |
+| 5. Evaluation (detection + counting) | 🛠️ Code ready (`pipelines/evaluate_pipeline.py`) |
+| 6. ONNX export + benchmark | 🛠️ Code ready (`pipelines/export_pipeline.py`) |
+| 7. Promote final model | 🛠️ Code ready (`pipelines/promote_pipeline.py`) |
 
 ---
 
@@ -34,24 +37,26 @@
 pilltally/
 ├── .github/                       # CI/CD Workflows
 ├── app/                           # Application Layer (Web / Edge Interface)
-├── docs/                          # Documentation & Roadmaps
-│   ├── configs/
-│   │   └── datasets.yaml          # Declarative dataset acquisition config
+├── docs/                          # Plans (Indonesian, not tracked)
+├── ml/                            # Machine learning engine
+│   ├── configs/                   # One YAML per stage (validated with Pydantic)
+│   ├── src/                       # Logic: small testable functions (no MLflow)
+│   │   ├── data/                  # download, split, labels, build, validate
+│   │   ├── models/                # train, export, promote
+│   │   ├── evaluation/            # counting metrics, evaluation, benchmark
+│   │   └── utils/                 # logger, config, paths, tracking
+│   ├── pipelines/                 # Flow: run_xxx() per stage, numbered steps
+│   ├── tests/                     # Pytest suite (tests src/ only)
+│   ├── notebooks/                 # 01_exploratory_data_analysis.ipynb
 │   ├── data/
 │   │   ├── raw/                   # Raw datasets (3 sources, 8,615 images)
-│   │   └── splits/                # Unified single-class train/val/test (planned)
-│   ├── notebooks/
-│   │   └── 01_exploratory_data_analysis.ipynb  # EDA & data audit
-│   ├── reports/
+│   │   └── splits/                # Combined single-class train/val/test
+│   ├── outputs/                   # All generated results (not tracked)
 │   │   ├── eda/                   # EDA metadata, duplicate pairs & figures
-│   │   └── eval/                  # Counting benchmarks (planned)
-│   ├── src/
-│   │   ├── data/
-│   │   │   └── download.py        # Dataset acquisition & verification runner
-│   │   ├── models/                # YOLO26 training & ONNX export runners
-│   │   ├── evaluation/            # Detection & MAE counting metrics
-│   │   └── utils/                 # Rich console logging & helpers
-│   ├── tests/                     # Pytest suite
+│   │   ├── runs/<run_name>/       # One folder per training scenario (+ eval/, export/)
+│   │   ├── pretrained/            # Downloaded COCO weights
+│   │   └── mlflow/                # MLflow database & artifacts
+│   ├── models/                    # Final model for the app + model_info.json
 │   ├── .env.example               # Environment variables template
 │   └── pyproject.toml             # Dependencies & Ruff configuration
 ├── .gitignore
@@ -94,31 +99,29 @@ cp .env.example .env
 ### 2. Verification & Testing
 
 ```powershell
-# Run the pytest suite (validates schemas & credentials)
-uv run pytest
+# Run the pytest suite (`uv run pytest` fails on Windows because of the uv trampoline)
+uv run python -m pytest
 
-# Pre-flight dry run (verifies remote endpoints without downloading)
-uv run python -m src.data.download --dry-run
+# Dry run: check dataset sources and the API key without downloading
+uv run python -c "from pipelines.download_pipeline import run_download; run_download(dry_run=True)"
 ```
 
 ### 3. Dataset Acquisition
 
 ```powershell
-# Option A: Test download of the smallest dataset (medical-pills, ~8.2 MB)
-uv run python -m src.data.download --test
+# Download all 3 datasets (8,615 images) into data/raw/
+uv run python -m pipelines.download_pipeline
 
-# Option B: Download all 3 datasets (8,615 images)
-uv run python -m src.data.download
-
-# Option C: Download a single dataset by name
-uv run python -m src.data.download --dataset "medical-pills"
+# Only the smallest dataset (medical-pills), or one dataset by name
+uv run python -c "from pipelines.download_pipeline import run_download; run_download(sample=True)"
+uv run python -c "from pipelines.download_pipeline import run_download; run_download(dataset='medical-pills')"
 ```
 
 ### 4. Exploratory Data Analysis (EDA)
 
 Open [`ml/notebooks/01_exploratory_data_analysis.ipynb`](ml/notebooks/01_exploratory_data_analysis.ipynb) and run all cells. It covers label audit, completeness, density, object geometry, spatial distribution, duplicates/leakage, splits, and a combined-dataset simulation, ending with key findings and decisions (Section 14).
 
-Outputs in `ml/reports/eda/` (overwritten on every run):
+Outputs in `ml/outputs/eda/` (overwritten on every run):
 
 | File | Content |
 | ---- | ------- |
@@ -129,7 +132,25 @@ Outputs in `ml/reports/eda/` (overwritten on every run):
 
 Key findings: labels are clean (no missing or invalid rows); 95% of CountingPills objects are polygons and must be converted to bboxes; objects average 50–144 px at 640, so `imgsz=640` is sufficient. See [docs/rencana_eda.md](docs/rencana_eda.md) and [docs/rencana_preprocessing.md](docs/rencana_preprocessing.md).
 
-### 5. Code Quality & Standards
+### 5. Training Pipeline
+
+All settings live in `ml/configs/*.yaml`. Run from `ml/`:
+
+```powershell
+# Combine the datasets into data/splits/ (7,721 / 559 / 335 images)
+uv run python -m pipelines.data_prep_pipeline
+
+# Train -> evaluate -> export (one MLflow run, results in outputs/runs/<run_name>/)
+uv run python -m pipelines.full_pipeline
+
+# Compare scenarios (sort by val/mae), then put the chosen run id in configs/promote.yaml
+uv run mlflow ui --backend-store-uri sqlite:///outputs/mlflow/mlflow.db
+uv run python -m pipelines.promote_pipeline
+```
+
+Set `sanity_run: true` in `configs/train.yaml` for a quick 1-epoch check, and use a new `run_name` for every scenario.
+
+### 6. Code Quality & Standards
 
 PillTally enforces modern Python standards with **Ruff** (configured in `ml/pyproject.toml`):
 
@@ -149,13 +170,14 @@ uv run ruff format .
 ## Machine Learning Roadmap
 
 ```
-[1. Download & Store] ➔ [2. EDA] ➔ [3. Combine & Split] ➔ [4. Augmentation Strategy]
-                                                                     │
-[8. Test & Verification] ❮─ [7. ONNX Export] ❮─ [6. Counting Eval] ❮─ [5. Train + Val (yolo26n)]
+[Download] ➔ [EDA] ➔ [Data prep] ➔ [Train yolo26n] ➔ [Evaluate] ➔ [Export ONNX] ➔ [Promote]
+                                          └──────────── one MLflow run ────────────┘
 ```
 
-* Split plan: original splits are kept; train-only Pill Detection is split 8 : 1 : 1 by pill code; medical-pills test is taken from train.
+* Split: original splits are kept; train-only Pill Detection is split 8 : 1 : 1 by pill code; medical-pills test is taken from train per near-duplicate frame group.
 * Augmentation: no offline augmentation; YOLO default online augmentation.
+* Metrics: precision, recall, F1, mAP50, mAP50-95; counting MAE, exact match, within ±1 (overall and per dataset); latency/FPS.
+* The scenario is chosen by `val/mae`; test metrics are only reported.
 * Details: [docs/rencana_pipeline_ml.md](docs/rencana_pipeline_ml.md).
 
 ---
