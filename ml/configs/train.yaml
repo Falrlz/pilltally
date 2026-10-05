@@ -13,6 +13,11 @@ run_name: "yolo26n_baseline"
 model: "yolo26n.pt"
 
 epochs: 50
+
+# Early stopping: stop when val fitness (mainly mAP50-95) has not improved
+# for this many epochs; best.pt is still the best epoch. 0 = never stop early
+patience: 10
+
 imgsz: 640
 batch: 16
 seed: 42

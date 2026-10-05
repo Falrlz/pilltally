@@ -35,6 +35,7 @@ def train_yolo(
     model.train(
         data=str(data_yaml),
         epochs=epochs,
+        patience=config.patience,
         fraction=fraction,
         imgsz=config.imgsz,
         batch=config.batch,

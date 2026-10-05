@@ -73,6 +73,7 @@ class TrainConfig(StrictModel):
     run_name: str
     model: str
     epochs: int = Field(gt=0)
+    patience: int = Field(ge=0)
     imgsz: int = Field(gt=0)
     batch: int
     seed: int
