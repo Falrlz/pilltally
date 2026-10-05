@@ -1,0 +1,11 @@
+# ==============================================================================
+# Evaluation Configuration (evaluate pipeline)
+# Output: outputs/runs/<run_name>/eval/   MLflow: same run as training
+# ==============================================================================
+
+# Confidence thresholds to try on val; the one with the lowest count MAE is
+# used for the test metrics and saved with the final model.
+conf_grid: [0.10, 0.15, 0.20, 0.25, 0.30, 0.35, 0.40, 0.45, 0.50]
+
+# Number of test images with the largest count error to save as examples
+num_error_examples: 12

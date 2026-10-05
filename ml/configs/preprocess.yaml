@@ -1,0 +1,25 @@
+# ==============================================================================
+# Preprocessing Configuration (data_prep pipeline)
+# Input: outputs/eda/ + data/raw/   Output: data/splits/  (see src/utils/paths.py)
+# Rules: docs/rencana_preprocessing.md
+# ==============================================================================
+
+seed: 42
+
+# Pill Detection only has train: split train:val:test per pill-combination code
+split_ratio: [8, 1, 1]
+
+# medical-pills: share of all its images moved from train to test
+medical_pills_test_fraction: 0.10
+
+# Every original class becomes class 0 with this name
+class_name: "pill"
+
+# true = delete the old files in data/splits/ first
+overwrite: false
+
+# Dataset name (as in the EDA index) -> file name prefix
+prefixes:
+  CountingPills: "cp_"
+  Pill Detection: "kr_"
+  medical-pills: "ul_"

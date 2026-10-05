@@ -1,0 +1,25 @@
+# ==============================================================================
+# Training Configuration (train pipeline)
+# Output: outputs/runs/<run_name>/   MLflow: outputs/mlflow/
+# ==============================================================================
+
+# MLflow experiment (all scenarios go into the same experiment)
+experiment_name: "pilltally-yolo26n"
+
+# Must be unique per scenario; becomes the folder outputs/runs/<run_name>/
+run_name: "yolo26n_baseline"
+
+# Pretrained weights, downloaded once to outputs/pretrained/
+model: "yolo26n.pt"
+
+epochs: 50
+imgsz: 640
+batch: 16
+seed: 42
+deterministic: true
+
+# null = automatic (GPU if available), or "cpu", or a GPU index such as 0
+device: null
+
+# true = quick check: 1 epoch on 5% of the training images
+sanity_run: false

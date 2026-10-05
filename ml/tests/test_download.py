@@ -8,13 +8,11 @@ import pytest
 from dotenv import load_dotenv
 from pydantic import ValidationError
 
-from src.data.download import (
-    CONFIG_FILE,
-    DirectDataset,
-    check_direct_dataset,
-    check_roboflow_dataset,
-    load_config,
-)
+from src.data.download import check_direct_dataset, check_roboflow_dataset
+from src.utils.config import DatasetsConfig, DirectDataset, load_config
+from src.utils.paths import CONFIGS_DIR
+
+CONFIG_FILE = CONFIGS_DIR / "datasets.yaml"
 
 load_dotenv()
 
@@ -26,11 +24,10 @@ def test_config_file_exists():
 
 def test_config_pydantic_schema_validation():
     """Verify that datasets.yaml validates against DatasetsConfig Pydantic schema."""
-    config = load_config(CONFIG_FILE)
+    config = load_config(CONFIG_FILE, DatasetsConfig)
     assert len(config.direct_datasets) == 1, "Expected 1 direct dataset"
     assert len(config.roboflow_datasets) == 2, "Expected 2 Roboflow datasets"
     assert config.direct_datasets[0].name == "medical-pills"
-    assert config.raw_dir == "data/raw"
 
 
 def test_pydantic_schema_rejection_on_invalid_data():
@@ -48,7 +45,7 @@ def test_roboflow_api_key_loaded():
 
 def test_direct_dataset_url_accessibility():
     """Verify that the medical-pills zip URL returns HTTP 200."""
-    config = load_config(CONFIG_FILE)
+    config = load_config(CONFIG_FILE, DatasetsConfig)
     dataset = config.direct_datasets[0]
     ok, message = check_direct_dataset(dataset)
     assert ok is True, f"Direct download check failed: {message}"
@@ -58,7 +55,7 @@ def test_direct_dataset_url_accessibility():
 def test_roboflow_connectivity():
     """Verify that Roboflow projects are accessible using the configured API key."""
     api_key = os.getenv("ROBOFLOW_API_KEY", "").strip()
-    config = load_config(CONFIG_FILE)
+    config = load_config(CONFIG_FILE, DatasetsConfig)
 
     # Test the first Roboflow dataset for fast connectivity verification
     first_rf = config.roboflow_datasets[0]

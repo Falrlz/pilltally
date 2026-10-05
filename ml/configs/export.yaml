@@ -1,0 +1,17 @@
+# ==============================================================================
+# Export Configuration (export pipeline)
+# Output: outputs/runs/<run_name>/export/   MLflow: same run as training
+# Image size is taken from the training run (args.yaml).
+# ==============================================================================
+
+# ONNX settings
+dynamic: false      # fixed input size
+simplify: true      # optimize the graph with onnxslim
+quantize: null      # null = FP32, 16 = FP16 (needs a GPU)
+
+# Number of val images used to compare PyTorch and ONNX counts
+parity_images: 50
+
+# Speed test on CPU: untimed warm-up runs, then timed runs
+benchmark_warmup: 10
+benchmark_repeats: 100
