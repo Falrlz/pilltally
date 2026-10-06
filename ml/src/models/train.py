@@ -36,6 +36,7 @@ def train_yolo(
         data=str(data_yaml),
         epochs=epochs,
         patience=config.patience,
+        freeze=config.freeze,
         fraction=fraction,
         imgsz=config.imgsz,
         batch=config.batch,

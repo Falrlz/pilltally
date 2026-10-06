@@ -7,7 +7,7 @@
 experiment_name: "pilltally-yolo26n"
 
 # Must be unique per scenario; becomes the folder outputs/runs/<run_name>/
-run_name: "yolo26n_baseline"
+run_name: "yolo26n_baseline_gpu"
 
 # Pretrained weights, downloaded once to outputs/pretrained/
 model: "yolo26n.pt"
@@ -17,6 +17,11 @@ epochs: 50
 # Early stopping: stop when val fitness (mainly mAP50-95) has not improved
 # for this many epochs; best.pt is still the best epoch. 0 = never stop early
 patience: 10
+
+# Freeze the first N layers (they keep their COCO weights and are not trained).
+# null = train all layers; 11 = freeze the whole yolo26n backbone (layers 0-10),
+# faster training but possibly slightly lower accuracy
+freeze: null
 
 imgsz: 640
 batch: 16

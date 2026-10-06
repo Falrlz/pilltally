@@ -74,6 +74,7 @@ class TrainConfig(StrictModel):
     model: str
     epochs: int = Field(gt=0)
     patience: int = Field(ge=0)
+    freeze: int | None = Field(default=None, ge=0)
     imgsz: int = Field(gt=0)
     batch: int
     seed: int
@@ -113,6 +114,16 @@ class PromoteConfig(StrictModel):
     """Settings for the promote pipeline."""
 
     run_id: str = Field(min_length=1)
+
+
+# ---------------------------------------------------------------------------
+# configs/import_run.yaml
+# ---------------------------------------------------------------------------
+class ImportRunConfig(StrictModel):
+    """Settings for the import_run pipeline."""
+
+    run_name: str = Field(min_length=1)
+    source: str
 
 
 # ---------------------------------------------------------------------------
