@@ -120,7 +120,8 @@ def run_evaluate(
     # Step 6: Add everything to the training run in MLflow
     logger.info("Step 6: Logging to MLflow...")
     with mlflow.start_run(run_id=run_id):
-        mlflow.log_param("conf_threshold", threshold)
+        # A metric (not a param) so evaluate can be re-run with a new threshold
+        mlflow.log_metric("conf_threshold", threshold)
         for split in EVAL_SPLITS:
             for name, value in results[split].items():
                 mlflow.log_metric(f"{split}/{name}", value)

@@ -178,10 +178,19 @@ def save_error_examples(
     n_examples: int,
     out_dir: Path,
 ) -> None:
-    """Save the images with the largest count error, with predicted boxes drawn."""
+    """Save the wrongly counted images (largest error first), with predicted boxes.
+
+    Images with a correct count are skipped. Old examples are removed first,
+    so the folder always matches the latest evaluation.
+    """
 
     out_dir.mkdir(parents=True, exist_ok=True)
-    worst = count_table.sort_values("error", ascending=False).head(n_examples)
+    for old_file in out_dir.iterdir():
+        if old_file.is_file():
+            old_file.unlink()
+
+    wrong = count_table[count_table["error"] > 0]
+    worst = wrong.sort_values("error", ascending=False).head(n_examples)
 
     for file_name, true, pred in zip(
         worst["file"], worst["true"], worst["pred"], strict=True
