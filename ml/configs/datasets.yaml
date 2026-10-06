@@ -1,0 +1,24 @@
+# ==============================================================================
+# Dataset Configuration (download pipeline)
+# Datasets are saved to data/raw/<name>/ (see src/utils/paths.py).
+# ==============================================================================
+
+# Direct download archives
+direct_datasets:
+  - name: "medical-pills"
+    url: "https://github.com/ultralytics/assets/releases/download/v0.0.0/medical-pills.zip"
+    format: "yolo26"
+
+# Roboflow Universe datasets
+roboflow_datasets:
+  - name: "CountingPills.v36i.yolo26"
+    workspace: "countingpills-rbjwo"
+    project: "countingpills"
+    version: 36
+    format: "yolo26"
+
+  - name: "Pill Detection.v22i.yolo26"
+    workspace: "pilldetection-qsfgv"
+    project: "pill-detection-tbmmm"
+    version: 22
+    format: "yolo26"

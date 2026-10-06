@@ -1,0 +1,11 @@
+# ==============================================================================
+# Import Configuration (import_run pipeline)
+# Records a run folder trained on another machine (e.g. Kaggle) in the local
+# MLflow database (outputs/mlflow/).
+# ==============================================================================
+
+# Folder name inside outputs/runs/ (extract the downloaded zip there first)
+run_name: "yolo26n_baseline_gpu"
+
+# Where the run was trained (saved as the 'source' tag)
+source: "kaggle"

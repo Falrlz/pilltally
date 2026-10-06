@@ -1,0 +1,8 @@
+# ==============================================================================
+# Promote Configuration (promote pipeline)
+# Copies the chosen run to models/ (the model used by the application).
+# ==============================================================================
+
+# MLflow run id of the chosen scenario.
+# Choose it in the MLflow UI by the lowest val/mae (never by test metrics).
+run_id: "2ffc63d06d49486bb036b990d40c8c2b"
