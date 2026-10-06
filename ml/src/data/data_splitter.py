@@ -1,7 +1,7 @@
 """
 Decide the final train / val / test split of every image.
 
-Rules (docs/rencana_preprocessing.md):
+Rules (docs/dataset.md):
 - CountingPills: keep the original folder split.
 - Pill Detection: only has train -> split 8:1:1 per pill-combination code,
   so photos of the same pill combination never end up in different splits.

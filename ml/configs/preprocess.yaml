@@ -1,7 +1,7 @@
 # ==============================================================================
 # Preprocessing Configuration (data_prep pipeline)
 # Input: outputs/eda/ + data/raw/   Output: data/splits/  (see src/utils/paths.py)
-# Rules: docs/rencana_preprocessing.md
+# Rules: docs/dataset.md
 # ==============================================================================
 
 seed: 42

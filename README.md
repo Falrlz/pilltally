@@ -1,4 +1,4 @@
-# PillTally
+# Pilltally
 
 > **Real-Time Pill Detection & Counting Engine powered by YOLO26 Nano (`yolo26n`)**
 
@@ -130,7 +130,7 @@ Outputs in `ml/outputs/eda/` (overwritten on every run):
 | `duplicate_pairs.csv` | Exact and near-duplicate image pairs |
 | `figures/` | EDA plots and sample grids |
 
-Key findings: labels are clean (no missing or invalid rows); 95% of CountingPills objects are polygons and must be converted to bboxes; objects average 50–144 px at 640, so `imgsz=640` is sufficient. See [docs/rencana_eda.md](docs/rencana_eda.md) and [docs/rencana_preprocessing.md](docs/rencana_preprocessing.md).
+Key findings: labels are clean (no missing or invalid rows); 95% of CountingPills objects are polygons and must be converted to bboxes; objects average 50–144 px at 640, so `imgsz=640` is sufficient.
 
 ### 5. Training Pipeline
 
@@ -178,7 +178,6 @@ uv run ruff format .
 * Augmentation: no offline augmentation; YOLO default online augmentation.
 * Metrics: precision, recall, F1, mAP50, mAP50-95; counting MAE, exact match, within ±1 (overall and per dataset); latency/FPS.
 * The scenario is chosen by `val/mae`; test metrics are only reported.
-* Details: [docs/rencana_pipeline_ml.md](docs/rencana_pipeline_ml.md).
 
 ---
 
