@@ -36,7 +36,8 @@
 ```text
 pilltally/
 ├── .github/                       # CI/CD Workflows
-├── app/                           # Application Layer (Web / Edge Interface)
+├── backend/                       # FastAPI + ONNX Runtime API (image upload, model file)
+├── frontend/                      # React + Vite web app (in-browser live/video counting)
 ├── docs/                          # Plans (Indonesian, not tracked)
 ├── ml/                            # Machine learning engine
 │   ├── configs/                   # One YAML per stage (validated with Pydantic)
