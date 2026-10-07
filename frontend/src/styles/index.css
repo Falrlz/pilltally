@@ -1,0 +1,11 @@
+@import "tailwindcss";
+@import "./theme.css";
+
+/* dark: classes follow the "dark" class on <html> (set by the theme toggle) */
+@custom-variant dark (&:where(.dark, .dark *));
+
+@layer base {
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+  }
+}
