@@ -4,6 +4,22 @@
 /* dark: classes follow the "dark" class on <html> (set by the theme toggle) */
 @custom-variant dark (&:where(.dark, .dark *));
 
+/* Hero rotating word: rolls up into view like a Rubik's cube face turning */
+@theme {
+  --animate-word-in: word-in 500ms ease-out;
+
+  @keyframes word-in {
+    from {
+      opacity: 0;
+      transform: perspective(600px) rotateX(-90deg);
+    }
+    to {
+      opacity: 1;
+      transform: perspective(600px) rotateX(0deg);
+    }
+  }
+}
+
 @layer base {
   body {
     @apply bg-background text-foreground font-sans antialiased;
