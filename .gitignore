@@ -101,3 +101,13 @@ desktop.ini
 *.ntvs*
 *.njsproj
 *.sln
+
+# ==========================================
+# AI Assistant & Planning Artifacts
+# ==========================================
+.claude/
+.impeccable/
+impeccable/
+PRODUCT.md
+product.md
+
