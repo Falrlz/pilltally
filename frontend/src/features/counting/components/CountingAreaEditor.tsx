@@ -32,7 +32,7 @@ export function CountingAreaEditor({ points, onMovePoint }: CountingAreaEditorPr
   }
 
   function handlePointerDown(event: PointerEvent<HTMLButtonElement>) {
-    // Keep receiving pointer moves even when the finger leaves the small circle
+    // Keep receiving pointer moves even when the finger leaves the corner
     event.currentTarget.setPointerCapture(event.pointerId)
   }
 
@@ -82,10 +82,17 @@ export function CountingAreaEditor({ points, onMovePoint }: CountingAreaEditorPr
           onPointerDown={handlePointerDown}
           onPointerMove={(event) => handlePointerMove(event, index)}
           onKeyDown={(event) => handleKeyDown(event, index)}
+          // A 44px invisible touch area around a small square corner (same as Home).
           // touch-none: dragging moves the corner, not the page
-          className="pointer-events-auto absolute size-11 -translate-x-1/2 -translate-y-1/2 cursor-grab touch-none rounded-full border-4 border-primary bg-background/70 active:cursor-grabbing"
+          className="group pointer-events-auto absolute flex size-11 -translate-x-1/2 -translate-y-1/2 cursor-grab touch-none items-center justify-center outline-none active:cursor-grabbing"
           style={{ left: `${point[0] * 100}%`, top: `${point[1] * 100}%` }}
-        />
+        >
+          {/* The visible corner; a thin ring around it shows keyboard focus */}
+          <span
+            aria-hidden="true"
+            className="size-3.5 bg-primary ring-primary ring-offset-2 ring-offset-transparent group-focus-visible:ring-2"
+          />
+        </button>
       ))}
     </div>
   )

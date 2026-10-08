@@ -49,15 +49,15 @@ export function SettingsMenu() {
         aria-expanded={isOpen}
         aria-controls={panelId}
         onClick={() => setIsOpen(!isOpen)}
-        className="flex size-11 cursor-pointer items-center justify-center rounded-lg text-muted hover:bg-surface hover:text-foreground"
+        className="flex size-11 cursor-pointer items-center justify-center text-muted transition-colors duration-300 hover:text-foreground"
       >
-        <Settings className="size-5" aria-hidden="true" />
+        <Settings className="size-5" strokeWidth={1.5} aria-hidden="true" />
       </button>
 
       {isOpen && (
         <div
           id={panelId}
-          className="absolute top-full right-0 z-50 mt-2 w-80 rounded-xl border border-border bg-background p-4 shadow-lg"
+          className="absolute top-full right-0 z-50 mt-2 w-80 border border-border bg-background p-5 shadow-[0_12px_32px_-12px_rgb(0_0_0_/0.25)]"
         >
           <SettingsPanel />
         </div>

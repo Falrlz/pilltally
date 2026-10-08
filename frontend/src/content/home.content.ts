@@ -7,6 +7,10 @@ export interface HomeContent {
     rotatingWords: string[]
     titleEnd: string
     visualLabel: string
+    countLabel: string
+    dragHint: string
+    // One per corner of the counting area: top-left, top-right, bottom-right, bottom-left
+    cornerLabels: string[]
   }
   modes: {
     heading: string
@@ -16,6 +20,7 @@ export interface HomeContent {
   area: {
     heading: string
     intro: string
+    vignetteLabel: string
     points: { id: string; text: string }[]
   }
   workflow: {
@@ -35,7 +40,16 @@ export const homeContent: Localized<HomeContent> = {
       titleStart: 'Menghitung pil dengan',
       rotatingWords: ['cepat', 'mudah', 'fleksibel'],
       titleEnd: ' secara otomatis',
-      visualLabel: 'Contoh pil dengan kotak deteksi',
+      visualLabel:
+        'Ilustrasi: pil di atas nampan hitung, dilihat dari atas. Setiap pil di dalam area hitung diberi kotak biru.',
+      countLabel: 'pil',
+      dragHint: 'Geser sudut bingkai biru untuk mengubah area hitung.',
+      cornerLabels: [
+        'Sudut kiri atas area hitung. Gunakan tombol panah untuk menggeser.',
+        'Sudut kanan atas area hitung. Gunakan tombol panah untuk menggeser.',
+        'Sudut kanan bawah area hitung. Gunakan tombol panah untuk menggeser.',
+        'Sudut kiri bawah area hitung. Gunakan tombol panah untuk menggeser.',
+      ],
     },
     modes: {
       heading: 'Mulai dari Mana Saja',
@@ -60,6 +74,8 @@ export const homeContent: Localized<HomeContent> = {
     },
     area: {
       heading: 'Lebih Fleksibel, Lebih Praktis',
+      vignetteLabel:
+        'Ilustrasi: sembilan pil di nampan. Lima pil di dalam area hitung biru diberi kotak; empat pil di luarnya tidak dihitung.',
       intro:
         'Hanya ingin menghitung sebagian pil? Atur area hitung, dan hanya pil di dalam area itu yang dihitung.',
       points: [
@@ -94,7 +110,16 @@ export const homeContent: Localized<HomeContent> = {
       titleStart: 'Count pills',
       rotatingWords: ['quickly', 'easily', 'flexibly'],
       titleEnd: ' and automatically',
-      visualLabel: 'Example pills with detection boxes',
+      visualLabel:
+        'Illustration: pills on a counting tray, seen from above. Every pill inside the counting area gets a blue box.',
+      countLabel: 'pills',
+      dragHint: 'Drag a corner of the blue frame to change the counting area.',
+      cornerLabels: [
+        'Top-left corner of the counting area. Use the arrow keys to move it.',
+        'Top-right corner of the counting area. Use the arrow keys to move it.',
+        'Bottom-right corner of the counting area. Use the arrow keys to move it.',
+        'Bottom-left corner of the counting area. Use the arrow keys to move it.',
+      ],
     },
     modes: {
       heading: 'Start Anywhere',
@@ -120,6 +145,8 @@ export const homeContent: Localized<HomeContent> = {
     },
     area: {
       heading: 'More Flexible, More Practical',
+      vignetteLabel:
+        'Illustration: nine pills on a tray. The five pills inside the blue counting area get a box; the four outside it are not counted.',
       intro:
         'Only want to count some of the pills? Set a counting area, and only the pills inside it are counted.',
       points: [

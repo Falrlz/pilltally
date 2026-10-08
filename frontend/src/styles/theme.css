@@ -1,38 +1,51 @@
 /*
- * Design tokens: the only place for colors, fonts and radius.
+ * Design tokens: the only place for colors and fonts.
  * Components use the names (bg-primary, text-muted, ...), never raw colors.
- * Values are TEMPORARY until the visual style is chosen.
+ * World: a tokonoma alcove. Plaster walls, weathered pine, a bronze dish,
+ * and iris blue kept for the active thing only (boxes, count, actions, focus).
  */
 
-/* Light theme */
+/* Light theme: plaster alcove in daylight */
 :root {
-  --background: #ffffff;         /* page */
-  --surface: #f5f5f5;            /* cards, panels */
-  --foreground: #171717;         /* main text */
-  --muted: #737373;              /* secondary text */
-  --border: #e5e5e5;
-  --primary: #0f766e;            /* buttons, active tab, links */
-  --primary-foreground: #ffffff; /* text on primary */
-  --detection: #22c55e;          /* boxes around counted pills */
-  --danger: #dc2626;             /* errors */
-  --warning: #d97706;            /* disclaimer, warnings */
+  --background: #e8e3d7;         /* plaster: page */
+  --surface: #ddd6c6;            /* recessed plaster: panels, alcove interior */
+  --foreground: #1c1b18;         /* ink: main text */
+  --muted: #5a5347;              /* earth ash: secondary text */
+  --border: #b9b09d;             /* hairline rules */
+  --primary: #2b45a0;            /* iris: actions, active state, focus */
+  --primary-foreground: #f3efe6; /* text on iris */
+  --detection: #3358d4;          /* boxes around counted pills (brighter iris, readable on camera) */
+  --pine: #6e665b;               /* weathered pine: structure lines, small marks */
+  --post: #6e665b;               /* posts and shelf framing (CTA, steps shelf) */
+  --bronze: #2a2f28;             /* bronze dish */
+  --shelf: #3a332c;              /* dark wooden shelf */
+  --pill: #f6f2ea;               /* drawn pills */
+  --pill-shade: #c9c0ad;         /* pill edge and shadow */
+  --danger: #a3372a;             /* errors */
+  --warning: #8a5a12;            /* disclaimer, warnings */
 }
 
-/* Dark theme: the same names, other values */
+/* Dark theme: the same alcove at night */
 .dark {
-  --background: #0a0a0a;
-  --surface: #171717;
-  --foreground: #fafafa;
-  --muted: #a3a3a3;
-  --border: #262626;
-  --primary: #2dd4bf;
-  --primary-foreground: #042f2e;
-  --detection: #4ade80;
-  --danger: #f87171;
-  --warning: #fbbf24;
+  --background: #191a17;
+  --surface: #2a2924;
+  --foreground: #e8e3d7;
+  --muted: #a49d8e;
+  --border: #3a3a33;
+  --primary: #9db0f2;
+  --primary-foreground: #141824;
+  --detection: #8fa6f5;
+  --pine: #8b8273;
+  --post: #110e0b;
+  --bronze: #0e100d;
+  --shelf: #2c2824;
+  --pill: #dcd6c9;
+  --pill-shade: #8f877a;
+  --danger: #e58a7c;
+  --warning: #e0b05a;
 }
 
-/* Make the names usable as Tailwind classes: bg-primary, text-muted, ... */
+/* Make the names usable as Tailwind classes: bg-primary, text-muted, font-display, ... */
 @theme inline {
   --color-background: var(--background);
   --color-surface: var(--surface);
@@ -42,8 +55,15 @@
   --color-primary: var(--primary);
   --color-primary-foreground: var(--primary-foreground);
   --color-detection: var(--detection);
+  --color-pine: var(--pine);
+  --color-post: var(--post);
+  --color-bronze: var(--bronze);
+  --color-shelf: var(--shelf);
+  --color-pill: var(--pill);
+  --color-pill-shade: var(--pill-shade);
   --color-danger: var(--danger);
   --color-warning: var(--warning);
 
-  --font-sans: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --font-sans: "Zen Kaku Gothic New", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-display: "Shippori Mincho", "Hiragino Mincho ProN", "Yu Mincho", serif;
 }

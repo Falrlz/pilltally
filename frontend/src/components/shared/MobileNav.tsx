@@ -17,7 +17,7 @@ export function MobileNav({ id, onNavigate }: MobileNavProps) {
   const { nav } = useLocalized(uiContent)
 
   return (
-    <nav id={id} aria-label={nav.mainLabel} className="border-t border-border bg-background px-5 pt-2 pb-6 md:hidden">
+    <nav id={id} aria-label={nav.mainLabel} className="border-t border-border bg-background px-5 pt-2 pb-6 lg:hidden">
       <ul>
         {menuItems.map((item) => (
           <li key={item.id} className="border-b border-border">
@@ -27,12 +27,12 @@ export function MobileNav({ id, onNavigate }: MobileNavProps) {
               onClick={onNavigate}
               className={({ isActive }) =>
                 isActive
-                  ? 'flex items-center justify-between py-4 text-2xl font-medium text-primary'
-                  : 'flex items-center justify-between py-4 text-2xl font-medium'
+                  ? 'flex items-center justify-between py-4 font-display text-2xl text-primary'
+                  : 'flex items-center justify-between py-4 font-display text-2xl'
               }
             >
               {item.label}
-              <ArrowRight className="size-5" aria-hidden="true" />
+              <ArrowRight className="size-5" strokeWidth={1.5} aria-hidden="true" />
             </NavLink>
           </li>
         ))}

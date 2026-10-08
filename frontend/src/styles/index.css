@@ -1,12 +1,16 @@
 @import "tailwindcss";
+@import "./fonts.css";
 @import "./theme.css";
 
 /* dark: classes follow the "dark" class on <html> (set by the theme toggle) */
 @custom-variant dark (&:where(.dark, .dark *));
 
-/* Hero rotating word: rolls up into view like a Rubik's cube face turning */
+/* Motion: everything eases out exponentially (fast start, long calm settle) */
 @theme {
-  --animate-word-in: word-in 500ms ease-out;
+  --ease-settle: cubic-bezier(0.16, 1, 0.3, 1);
+
+  /* Hero rotating word: rolls up into view */
+  --animate-word-in: word-in 600ms var(--ease-settle);
 
   @keyframes word-in {
     from {
@@ -18,10 +22,89 @@
       transform: perspective(600px) rotateX(0deg);
     }
   }
+
+  /* A detection box settles on a pill: drawn by its stroke, faint first, then firm */
+  --animate-box-settle: box-settle 900ms var(--ease-settle) both;
+
+  @keyframes box-settle {
+    0% {
+      stroke-dashoffset: 1;
+      opacity: 0.35;
+    }
+    60% {
+      stroke-dashoffset: 0;
+      opacity: 0.35;
+    }
+    100% {
+      stroke-dashoffset: 0;
+      opacity: 1;
+    }
+  }
+}
+
+/* Page width: one value for navbar, sections, hero and footer so their edges line up.
+   Laptops keep 72rem; desktop screens (1700px and up) get a little more room, 80rem. */
+:root {
+  --page-width: 72rem;
+}
+
+@media (width >= 1700px) {
+  :root {
+    --page-width: 80rem;
+  }
+}
+
+@utility page-width {
+  max-width: var(--page-width);
+}
+
+/* Plaster grain: fine grey noise laid over a ground color, so large quiet
+   areas read as a material instead of an empty screen */
+@utility plaster-grain {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.07'/%3E%3C/svg%3E");
+}
+
+/* A recessed plaster panel: one step darker, grained, shaded under its top edge */
+@utility plaster-recess {
+  background-color: var(--surface);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.11'/%3E%3C/svg%3E");
+  box-shadow: inset 0 28px 36px -28px rgb(0 0 0 / 0.22);
 }
 
 @layer base {
+  html {
+    scrollbar-color: var(--border) var(--background);
+  }
+
   body {
-    @apply bg-background text-foreground font-sans antialiased;
+    @apply bg-background plaster-grain text-foreground font-sans antialiased;
+    caret-color: var(--primary);
+  }
+
+  h1,
+  h2,
+  h3 {
+    text-wrap: balance;
+  }
+
+  /* Page and section headings speak in the mincho display face */
+  h1,
+  h2 {
+    font-family: var(--font-display);
+    font-weight: 400;
+  }
+
+  ::selection {
+    background-color: color-mix(in srgb, var(--primary) 22%, transparent);
+    color: var(--foreground);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--primary);
+    outline-offset: 3px;
+  }
+
+  a {
+    text-underline-offset: 0.25em;
   }
 }

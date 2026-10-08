@@ -24,17 +24,18 @@ export function Accordion({ title, children, defaultOpen = false }: AccordionPro
           aria-expanded={isOpen}
           aria-controls={panelId}
           onClick={() => setIsOpen(!isOpen)}
-          className="flex w-full cursor-pointer items-start justify-between gap-6 py-5 text-left font-medium"
+          className="group flex w-full cursor-pointer items-start justify-between gap-6 py-6 text-left font-display text-xl transition-colors duration-300 hover:text-primary"
         >
           {title}
           <Plus
             aria-hidden="true"
-            className={isOpen ? 'size-5 shrink-0 rotate-45 transition-transform' : 'size-5 shrink-0 transition-transform'}
+            strokeWidth={1.25}
+            className={isOpen ? 'mt-1 size-5 shrink-0 rotate-45 text-primary transition-transform duration-300' : 'mt-1 size-5 shrink-0 transition-transform duration-300'}
           />
         </button>
       </h3>
 
-      <div id={panelId} role="region" aria-labelledby={buttonId} hidden={!isOpen} className="pb-5 text-muted">
+      <div id={panelId} role="region" aria-labelledby={buttonId} hidden={!isOpen} className="pb-7 text-muted">
         {children}
       </div>
     </div>

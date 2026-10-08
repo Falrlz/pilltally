@@ -24,7 +24,7 @@ export function RotatingWords({ words }: { words: string[] }) {
 
         // Only the active word is visible; it plays the roll-in animation
         // (skipped when the user turned animations off in their device)
-        const stateClass = isActive ? 'text-primary motion-safe:animate-word-in' : 'invisible'
+        const stateClass = isActive ? 'motion-safe:animate-word-in' : 'invisible'
 
         return (
           <span key={word} className={`col-start-1 row-start-1 ${stateClass}`}>

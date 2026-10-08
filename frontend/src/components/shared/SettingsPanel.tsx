@@ -9,10 +9,10 @@ export function SettingsPanel() {
 
   return (
     <div>
-      <p className="font-semibold">{settings.title}</p>
-      <p className="mt-3 mb-2 text-sm text-muted">{settings.language}</p>
+      <p className="font-display text-lg">{settings.title}</p>
+      <p className="mt-4 mb-2 text-xs tracking-[0.2em] text-muted uppercase">{settings.language}</p>
       <LanguageSwitch />
-      <p className="mt-5 mb-2 text-sm text-muted">{settings.theme}</p>
+      <p className="mt-5 mb-2 text-xs tracking-[0.2em] text-muted uppercase">{settings.theme}</p>
       <ThemeSwitch />
     </div>
   )

@@ -28,7 +28,7 @@ export function Alert({ variant = 'info', children }: AlertProps) {
     <div
       // Errors are read out by screen readers right away
       role={variant === 'danger' ? 'alert' : undefined}
-      className={`flex gap-3 rounded-lg border bg-surface p-4 text-sm ${VARIANT_CLASSES[variant]}`}
+      className={`flex gap-3 border bg-surface p-4 text-sm ${VARIANT_CLASSES[variant]}`}
     >
       <Icon className="size-5 shrink-0" aria-hidden="true" />
       <div>{children}</div>

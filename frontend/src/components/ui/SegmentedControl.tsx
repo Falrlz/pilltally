@@ -48,7 +48,7 @@ export function SegmentedControl<T extends string>({
       role="radiogroup"
       aria-label={label}
       onKeyDown={handleKeyDown}
-      className="grid auto-cols-fr grid-flow-col gap-1 rounded-lg border border-border bg-surface p-1"
+      className="grid auto-cols-fr grid-flow-col gap-1 border border-border p-1"
     >
       {options.map((option) => {
         const isActive = option.value === value
@@ -65,8 +65,8 @@ export function SegmentedControl<T extends string>({
             onClick={() => onChange(option.value)}
             className={
               isActive
-                ? 'flex min-h-11 cursor-pointer flex-col items-center justify-center gap-1 rounded-md bg-background px-2 text-sm font-medium text-foreground shadow-sm'
-                : 'flex min-h-11 cursor-pointer flex-col items-center justify-center gap-1 rounded-md px-2 text-sm text-muted hover:text-foreground'
+                ? 'flex min-h-11 cursor-pointer flex-col items-center justify-center gap-1 bg-primary px-2 text-sm font-medium text-primary-foreground'
+                : 'flex min-h-11 cursor-pointer flex-col items-center justify-center gap-1 px-2 text-sm text-muted transition-colors duration-300 hover:text-foreground'
             }
           >
             {option.icon}
