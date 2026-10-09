@@ -1,5 +1,5 @@
-import { useId, type KeyboardEvent, type PointerEvent } from 'react'
-import { quadPath, TRAY_FLOOR, type Quad } from '@/features/home/lib/trayScene'
+import { useId, type KeyboardEvent, type PointerEvent, type ReactNode } from 'react'
+import { quadPath, TRAY_FLOOR, type Quad, type TrayFloor } from '@/features/home/lib/trayScene'
 
 // How far one arrow-key press moves a corner (viewBox units)
 const KEY_STEP = 10
@@ -14,16 +14,20 @@ interface CountingAreaProps {
   // Turns a pointer position on screen into viewBox units
   toViewBox: (clientX: number, clientY: number) => { x: number; y: number }
   onMoveCorner: (corner: number, x: number, y: number) => void
+  // The floor the veil covers: the hero tray by default
+  floor?: TrayFloor
+  // Drawn over the veil and outline but under the corners, so the corners stay on top
+  overlay?: ReactNode
 }
 
 // The counting area, like in the real app: 4 corners that each can be dragged.
 // Outside the area the tray floor is darkened (like the real app); the outline is an iris line.
-export function CountingArea({ quad, cornerLabels, toViewBox, onMoveCorner }: CountingAreaProps) {
+export function CountingArea({ quad, cornerLabels, toViewBox, onMoveCorner, floor = TRAY_FLOOR, overlay }: CountingAreaProps) {
   // Veil = the tray floor with a hole where the area is (even-odd rule),
   // clipped to the floor's rounded corners so the bronze rim stays clean
   const floorClipId = `tray-floor-${useId().replace(/:/g, '')}`
   const veilPath =
-    `M${TRAY_FLOOR.x} ${TRAY_FLOOR.y} h${TRAY_FLOOR.width} v${TRAY_FLOOR.height} h-${TRAY_FLOOR.width} Z ` +
+    `M${floor.x} ${floor.y} h${floor.width} v${floor.height} h-${floor.width} Z ` +
     quadPath(quad)
 
   function handlePointerDown(event: PointerEvent<SVGGElement>) {
@@ -56,16 +60,17 @@ export function CountingArea({ quad, cornerLabels, toViewBox, onMoveCorner }: Co
       <defs>
         <clipPath id={floorClipId}>
           <rect
-            x={TRAY_FLOOR.x}
-            y={TRAY_FLOOR.y}
-            width={TRAY_FLOOR.width}
-            height={TRAY_FLOOR.height}
-            rx={TRAY_FLOOR.radius}
+            x={floor.x}
+            y={floor.y}
+            width={floor.width}
+            height={floor.height}
+            rx={floor.radius}
           />
         </clipPath>
       </defs>
       <path d={veilPath} fillRule="evenodd" className="fill-bronze" opacity="0.6" clipPath={`url(#${floorClipId})`} />
       <path d={quadPath(quad)} fill="none" className="stroke-primary" strokeWidth="2" strokeLinejoin="miter" />
+      {overlay}
 
       {quad.map((point, corner) => (
         <g

@@ -20,6 +20,23 @@ export interface Point {
 // The counting area: 4 corners in order top-left, top-right, bottom-right, bottom-left
 export type Quad = [Point, Point, Point, Point]
 
+// Where the corners may go: the edges of a tray
+export interface AreaLimits {
+  left: number
+  top: number
+  right: number
+  bottom: number
+}
+
+// A tray floor (inside its rim); the veil outside the area covers only this
+export interface TrayFloor {
+  x: number
+  y: number
+  width: number
+  height: number
+  radius: number
+}
+
 export interface Box {
   x: number
   y: number
@@ -31,10 +48,10 @@ export const VIEW_WIDTH = 600
 export const VIEW_HEIGHT = 420
 
 // The floor of the tray (inside its bronze rim); the veil outside the area covers only this
-export const TRAY_FLOOR = { x: 34, y: 34, width: 532, height: 352, radius: 12 }
+export const TRAY_FLOOR: TrayFloor = { x: 34, y: 34, width: 532, height: 352, radius: 12 }
 
 // The corners can move anywhere on the tray
-export const AREA_LIMITS = { left: 24, top: 24, right: 576, bottom: 396 }
+export const AREA_LIMITS: AreaLimits = { left: 24, top: 24, right: 576, bottom: 396 }
 
 // At the start the area is a neat rectangle around the pile;
 // three pills wait in the tray's channel outside it
@@ -146,11 +163,12 @@ function clamp(value: number, min: number, max: number): number {
 }
 
 // Move corner number `corner` (0–3) to (x, y), kept on the tray
-export function moveCorner(quad: Quad, corner: number, x: number, y: number): Quad {
+// (the hero tray by default; smaller trays pass their own limits)
+export function moveCorner(quad: Quad, corner: number, x: number, y: number, limits = AREA_LIMITS): Quad {
   const moved: Quad = [...quad]
   moved[corner] = {
-    x: clamp(x, AREA_LIMITS.left, AREA_LIMITS.right),
-    y: clamp(y, AREA_LIMITS.top, AREA_LIMITS.bottom),
+    x: clamp(x, limits.left, limits.right),
+    y: clamp(y, limits.top, limits.bottom),
   }
   return moved
 }
