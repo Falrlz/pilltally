@@ -25,10 +25,7 @@ export function Navbar() {
       <div className="relative mx-auto flex h-16 page-width items-center justify-between px-5 md:px-8">
         <Link to={PATHS.home} onClick={closeMobileMenu} className="flex items-center gap-3">
           <BrandMark />
-          <span className="flex flex-col leading-none">
-            <span className="font-display text-lg tracking-[0.22em] uppercase">{brand.name}</span>
-            <span className="mt-1.5 text-[0.62rem] tracking-[0.24em] text-muted uppercase">{brand.tagline}</span>
-          </span>
+          <span className="font-display text-lg leading-none tracking-[0.22em] uppercase">{brand.name}</span>
         </Link>
 
         <nav
@@ -49,10 +46,10 @@ export function Navbar() {
             >
               {({ isActive }) => (
                 <>
-                  {/* The current page carries a small iris dot */}
+                  {/* The current page carries a small iris square (square corners, like the rest) */}
                   <span
                     aria-hidden="true"
-                    className={`size-1.5 rounded-full ${isActive ? 'bg-primary' : 'bg-transparent'}`}
+                    className={`size-1.5 ${isActive ? 'bg-primary' : 'bg-transparent'}`}
                   />
                   {item.label}
                 </>

@@ -21,7 +21,7 @@ export function DetectionChapter({ threshold }: { threshold: number | undefined 
       <figure className="mt-8 rounded-xl bg-foreground px-4 py-8 text-background sm:px-10 sm:py-10 dark:border dark:border-border dark:bg-surface dark:text-foreground">
         {/* The formula: N = |{ i : s_i ≥ τ }| */}
         <div role="img" aria-label={detection.formulaLabel} className="overflow-x-auto">
-          <p className="mx-auto w-max font-serif text-2xl sm:text-4xl">
+          <p className="mx-auto w-max font-display text-2xl sm:text-4xl">
             <i>N</i> = |{'{'} <i>i</i> : <i>s</i>
             <sub className="text-base">
               <i>i</i>
@@ -33,16 +33,16 @@ export function DetectionChapter({ threshold }: { threshold: number | undefined 
         {/* What each symbol means */}
         <figcaption className="mt-6 flex flex-wrap justify-center gap-x-6 gap-y-2 text-sm opacity-80">
           <span>
-            <i className="font-serif">N</i> = {detection.formulaTerms.count}
+            <i className="font-display">N</i> = {detection.formulaTerms.count}
           </span>
           <span>
-            <i className="font-serif">
-              s<sub>i</sub>
+            <i className="font-display">
+              s<sub className="text-xs">i</sub>
             </i>{' '}
             = {detection.formulaTerms.score}
           </span>
           <span>
-            <i className="font-serif">τ</i> = {thresholdText}
+            <i className="font-display">τ</i> = {thresholdText}
           </span>
         </figcaption>
       </figure>

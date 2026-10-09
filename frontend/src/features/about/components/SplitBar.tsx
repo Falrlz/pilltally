@@ -20,7 +20,7 @@ export function SplitBar() {
 
   return (
     <figure className="mt-10">
-      <figcaption className="text-sm font-semibold">{dataset.splitHeading}</figcaption>
+      <figcaption className="text-sm font-medium">{dataset.splitHeading}</figcaption>
 
       {/* The bar itself; the numbers are in the list below, so it is hidden from screen readers */}
       <div aria-hidden="true" className="mt-3 flex h-3 gap-0.5">

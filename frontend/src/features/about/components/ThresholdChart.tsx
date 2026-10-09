@@ -36,7 +36,7 @@ export function ThresholdChart() {
   return (
     <figure className="mt-12">
       <figcaption>
-        <p className="font-semibold">{chart.heading}</p>
+        <p className="font-medium">{chart.heading}</p>
         <p className="mt-1 max-w-[62ch] text-sm text-muted">{chart.description}</p>
       </figcaption>
 
@@ -79,7 +79,7 @@ export function ThresholdChart() {
                     >
                       {showValue && (
                         <span
-                          className="absolute whitespace-nowrap text-xs font-semibold tabular-nums"
+                          className="absolute whitespace-nowrap text-xs font-medium tabular-nums"
                           style={{ bottom: `calc(${toPercent(point.mae)} + 4px)` }}
                         >
                           {formatMae(point.mae, locale)}
@@ -100,7 +100,7 @@ export function ThresholdChart() {
               {THRESHOLD_SEARCH.map((point, index) => (
                 <span
                   key={point.threshold}
-                  className={`flex-1 text-center ${index === bestIndex ? 'font-semibold' : 'text-muted'}`}
+                  className={`flex-1 text-center ${index === bestIndex ? 'font-medium' : 'text-muted'}`}
                 >
                   {formatDecimal(point.threshold, locale)}
                 </span>

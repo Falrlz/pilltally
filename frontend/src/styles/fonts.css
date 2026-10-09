@@ -1,6 +1,8 @@
 /*
  * Self-hosted fonts (latin subset), downloaded from Google Fonts.
  * Shippori Mincho and Zen Kaku Gothic New: SIL Open Font License 1.1.
+ * Only the weights the type scale uses are loaded (see index.css):
+ * mincho 400 for display, gothic 400 for body and 500 for small text.
  */
 
 @font-face {
@@ -9,14 +11,6 @@
   font-weight: 400;
   font-display: swap;
   src: url("./fonts/shippori-mincho-400.woff2") format("woff2");
-}
-
-@font-face {
-  font-family: "Shippori Mincho";
-  font-style: normal;
-  font-weight: 600;
-  font-display: swap;
-  src: url("./fonts/shippori-mincho-600.woff2") format("woff2");
 }
 
 @font-face {
@@ -33,12 +27,4 @@
   font-weight: 500;
   font-display: swap;
   src: url("./fonts/zen-kaku-gothic-new-500.woff2") format("woff2");
-}
-
-@font-face {
-  font-family: "Zen Kaku Gothic New";
-  font-style: normal;
-  font-weight: 700;
-  font-display: swap;
-  src: url("./fonts/zen-kaku-gothic-new-700.woff2") format("woff2");
 }

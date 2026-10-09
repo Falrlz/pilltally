@@ -1,7 +1,6 @@
 import { Camera, Image as ImageIcon, Video } from 'lucide-react'
 import { useSearchParams } from 'react-router'
 import { useLocalized } from '@/app/providers/localeContext'
-import { Alert } from '@/components/ui/Alert'
 import { Tabs, type TabItem } from '@/components/ui/Tabs'
 import { countContent } from '@/content/count.content'
 import { useCountingArea } from '../hooks/useCountingArea'
@@ -23,7 +22,7 @@ function readMode(value: string | null): CountMode {
   return DEFAULT_MODE
 }
 
-// Everything on the Count page: mode tabs, the chosen mode, disclaimer
+// Everything on the Count page: mode tabs and the chosen mode
 export function CountWorkspace() {
   const content = useLocalized(countContent)
   const [searchParams, setSearchParams] = useSearchParams()
@@ -55,8 +54,6 @@ export function CountWorkspace() {
         {mode === 'image' && <ImageCounter countingArea={countingArea} />}
         {mode === 'video' && <VideoCounter isDebug={isDebug} countingArea={countingArea} />}
       </div>
-
-      <Alert variant="warning">{content.disclaimer}</Alert>
 
       {isDebug && <DetectorDebugPanel />}
     </div>

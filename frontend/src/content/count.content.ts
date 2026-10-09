@@ -29,7 +29,6 @@ export interface CountContent {
     unknown: string
   }
   tryAgain: string
-  disclaimer: string
   detector: {
     loadingModel: string
     preparing: string
@@ -109,8 +108,6 @@ export const countContent: Localized<CountContent> = {
       unknown: 'Terjadi kesalahan. Coba lagi.',
     },
     tryAgain: 'Coba lagi',
-    disclaimer:
-      'Hasil hitung adalah alat bantu. Untuk keperluan medis atau penyerahan obat, selalu periksa ulang secara manual.',
     detector: {
       loadingModel: 'Mengunduh model…',
       preparing: 'Menyiapkan model…',
@@ -185,7 +182,6 @@ export const countContent: Localized<CountContent> = {
       unknown: 'Something went wrong. Please try again.',
     },
     tryAgain: 'Try again',
-    disclaimer: 'Counts are an aid. For medical use or dispensing, always double-check by hand.',
     detector: {
       loadingModel: 'Downloading the model…',
       preparing: 'Preparing the model…',

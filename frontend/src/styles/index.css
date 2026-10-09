@@ -5,21 +5,100 @@
 /* dark: classes follow the "dark" class on <html> (set by the theme toggle) */
 @custom-variant dark (&:where(.dark, .dark *));
 
+/* short: a laptop (1024px and wider) whose window is not very tall, e.g. with a
+   bookmark bar, a taskbar or 125–150% display scaling. Sections use it to tighten
+   their spacing so each one still fits on one screen. */
+@custom-variant short (@media (min-width: 1024px) and (max-height: 760px));
+
+/* Type scale. The whole site uses only these sizes:
+   13 (text-xs, small caps labels) · 14 (text-sm) · 16 (text-base, body) · 18 (text-lg) ·
+   20 (text-xl) · 24 · 30 · 36 · 48 · 72, plus the fluid hero title.
+   Weights: the mincho display face only at 400; the gothic at 400 for text of
+   16px and up, and 500 for everything smaller. Thin small text breaks up on
+   ordinary monitors, so small sizes carry their own 500 weight here. */
+@theme {
+  --text-xs: 0.8125rem;
+  --text-xs--line-height: calc(1.125 / 0.8125);
+  --text-xs--font-weight: 500;
+  --text-sm--font-weight: 500;
+}
+
 /* Motion: everything eases out exponentially (fast start, long calm settle) */
 @theme {
   --ease-settle: cubic-bezier(0.16, 1, 0.3, 1);
 
-  /* Hero rotating word: rolls up into view */
-  --animate-word-in: word-in 600ms var(--ease-settle);
+  /* Hero rotating word, turned like a Rubik's cube.
+     Each letter is a cube one line tall: it turns a quarter up and lands with a
+     small mechanical click: the curve holds back for a moment (a twist meeting
+     resistance), then snaps, overshoots a little and settles.
+     The cube is pushed back half a line so its front face sits exactly where
+     plain text sits: the turn starts and ends without a jump.
+     The delay per letter is set inline in RotatingWords (a var() here would be
+     resolved on :root, where the letter's delay does not exist). */
+  --ease-click: cubic-bezier(0.55, -0.12, 0.2, 1.3);
+  --animate-cube-turn: cube-turn 900ms var(--ease-click) both;
+  --animate-cube-face-out: cube-face-out 900ms var(--ease-click) both;
+  --animate-cube-face-in: cube-face-in 900ms var(--ease-click) both;
+  /* Reduced motion: the new word only fades in */
+  --animate-word-fade: word-fade 400ms ease-out;
 
-  @keyframes word-in {
+  @keyframes cube-turn {
     from {
-      opacity: 0;
-      transform: perspective(600px) rotateX(-90deg);
+      transform: translateZ(-0.5lh) rotateX(0deg);
+    }
+    to {
+      transform: translateZ(-0.5lh) rotateX(90deg);
+    }
+  }
+
+  /* The face turning away goes into shadow, the face turning in comes into light */
+  @keyframes cube-face-out {
+    from {
+      opacity: 1;
+    }
+    to {
+      opacity: 0.1;
+    }
+  }
+
+  @keyframes cube-face-in {
+    from {
+      opacity: 0.1;
     }
     to {
       opacity: 1;
-      transform: perspective(600px) rotateX(0deg);
+    }
+  }
+
+  @keyframes word-fade {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+
+  /* Workflow pictures: the camera's live square blinks like a recording light,
+     the video's played part grows along the player bar again and again */
+  --animate-live-blink: live-blink 1.6s steps(1, end) infinite;
+  --animate-video-progress: video-progress 8s linear infinite;
+
+  @keyframes live-blink {
+    0% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0.25;
+    }
+  }
+
+  @keyframes video-progress {
+    from {
+      transform: scaleX(0);
+    }
+    to {
+      transform: scaleX(1);
     }
   }
 
@@ -71,6 +150,17 @@
   box-shadow: inset 0 28px 36px -28px rgb(0 0 0 / 0.22);
 }
 
+/* The two faces of one Rubik letter cube (hero rotating word). The cube is one line
+   tall, so each face sits half a line out from the cube's center:
+   the front face toward the viewer, the bottom face folded underneath. */
+@utility cube-face-front {
+  transform: translateZ(0.5lh);
+}
+
+@utility cube-face-bottom {
+  transform: rotateX(-90deg) translateZ(0.5lh);
+}
+
 @layer base {
   html {
     scrollbar-color: var(--border) var(--background);
@@ -85,6 +175,14 @@
   h2,
   h3 {
     text-wrap: balance;
+  }
+
+  /* Elements the browser makes bold get the heaviest loaded weight (500) instead
+     of a fake bold drawn from a lighter file */
+  th,
+  b,
+  strong {
+    font-weight: 500;
   }
 
   /* Page and section headings speak in the mincho display face */
@@ -106,5 +204,57 @@
 
   a {
     text-underline-offset: 0.25em;
+  }
+}
+
+/* Settings menu (navbar, laptop).
+   The panel unfolds from the gear's corner like a folded sheet of paper, then its
+   rows arrive one after another. Closing is quicker than opening and has no stagger.
+   The open state is the data-open attribute on the menu root (SettingsMenu). */
+.settings-sheet {
+  transition:
+    clip-path 450ms var(--ease-settle),
+    opacity 200ms ease-out,
+    visibility 450ms;
+}
+
+[data-open="false"] .settings-sheet {
+  clip-path: inset(0 0 100% 100%);
+  opacity: 0;
+  visibility: hidden;
+  transition-duration: 180ms;
+}
+
+[data-open="true"] .settings-sheet {
+  clip-path: inset(0 0 0 0);
+}
+
+.settings-sheet > * > * {
+  transition:
+    opacity 250ms ease-out,
+    translate 450ms var(--ease-settle);
+}
+
+[data-open="false"] .settings-sheet > * > * {
+  opacity: 0;
+  translate: 0 -0.375rem;
+  transition-duration: 120ms;
+}
+
+/* One row after another: title, language label, language switch, theme label, theme switch */
+[data-open="true"] .settings-sheet > * > :nth-child(2) { transition-delay: 40ms; }
+[data-open="true"] .settings-sheet > * > :nth-child(3) { transition-delay: 70ms; }
+[data-open="true"] .settings-sheet > * > :nth-child(4) { transition-delay: 100ms; }
+[data-open="true"] .settings-sheet > * > :nth-child(5) { transition-delay: 130ms; }
+
+/* Reduced motion: no unfolding and no sliding rows, the panel only fades */
+@media (prefers-reduced-motion: reduce) {
+  [data-open] .settings-sheet {
+    clip-path: none;
+  }
+
+  [data-open] .settings-sheet > * > * {
+    translate: none;
+    transition-delay: 0ms;
   }
 }

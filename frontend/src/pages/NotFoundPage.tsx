@@ -9,7 +9,7 @@ export default function NotFoundPage() {
 
   return (
     <SectionContainer>
-      <h1 className="text-3xl font-bold">{notFound.title}</h1>
+      <h1 className="text-3xl">{notFound.title}</h1>
       <ButtonLink to={PATHS.home} variant="secondary" className="mt-6">
         {notFound.backHome}
       </ButtonLink>

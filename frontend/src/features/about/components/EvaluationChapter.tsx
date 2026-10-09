@@ -18,10 +18,10 @@ export function EvaluationChapter({ modelInfo }: { modelInfo: ModelInfoState }) 
 
       {modelInfo.status === 'success' && (
         <>
-          <h3 className="mt-10 mb-3 font-semibold">{evaluation.countHeading}</h3>
+          <h3 className="mt-10 mb-3 font-medium">{evaluation.countHeading}</h3>
           <CountAccuracyTable info={modelInfo.data} />
 
-          <h3 className="mt-12 mb-3 font-semibold">{evaluation.detectionHeading}</h3>
+          <h3 className="mt-12 mb-3 font-medium">{evaluation.detectionHeading}</h3>
           <DetectionMetricsTable info={modelInfo.data} />
 
           {/* What the numbers mean, including the weak spots */}

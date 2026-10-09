@@ -46,14 +46,14 @@ export function CountAccuracyTable({ info }: { info: ModelInfo }) {
 
   return (
     <div>
-      <table className="w-full text-left text-sm tabular-nums sm:text-base">
+      <table className="w-full text-left text-sm tabular-nums sm:text-base sm:font-normal">
         <caption className="sr-only">{evaluation.countHeading}</caption>
         <thead>
           <tr className="border-b border-foreground/80 text-sm text-muted">
-            <th scope="col" className="py-3 pr-2 pl-2 sm:pr-4 sm:pl-3 font-normal">
+            <th scope="col" className="py-3 pr-2 pl-2 sm:pr-4 sm:pl-3">
               {evaluation.countColumns.dataset}
             </th>
-            <th scope="col" className="px-2 py-3 text-right sm:px-3 font-normal">
+            <th scope="col" className="px-2 py-3 text-right sm:px-3">
               {evaluation.countColumns.images}
             </th>
             {metricKeys.map((key) => {
@@ -62,7 +62,7 @@ export function CountAccuracyTable({ info }: { info: ModelInfo }) {
                 <th
                   key={key}
                   scope="col"
-                  className={`px-2 py-3 text-right sm:px-3 ${isKey ? 'font-semibold text-primary' : 'font-normal'}`}
+                  className={`px-2 py-3 text-right sm:px-3 ${isKey ? 'text-primary' : ''}`}
                 >
                   {evaluation.countMetrics[key]}
                 </th>
@@ -74,9 +74,9 @@ export function CountAccuracyTable({ info }: { info: ModelInfo }) {
           {rows.map((row) => (
             <tr
               key={row.id}
-              className={row.isOverall ? 'bg-primary/10 font-semibold' : 'border-b border-border'}
+              className={row.isOverall ? 'bg-primary/10 font-medium' : 'border-b border-border'}
             >
-              <th scope="row" className={`py-4 pr-2 pl-2 sm:pr-4 sm:pl-3 ${row.isOverall ? 'font-semibold' : 'font-normal'}`}>
+              <th scope="row" className={`py-4 pr-2 pl-2 sm:pr-4 sm:pl-3 ${row.isOverall ? 'font-medium' : 'font-normal max-sm:font-medium'}`}>
                 {row.name}
               </th>
               <td className="px-2 py-4 text-right sm:px-3">{row.images.toLocaleString(locale)}</td>
@@ -84,7 +84,7 @@ export function CountAccuracyTable({ info }: { info: ModelInfo }) {
                 const isKey = KEY_METRICS.includes(key)
                 const value = info.test[`${row.metricPrefix}${key}`]
                 return (
-                  <td key={key} className={`px-2 py-4 text-right sm:px-3 ${isKey ? 'font-semibold text-primary' : ''}`}>
+                  <td key={key} className={`px-2 py-4 text-right sm:px-3 ${isKey ? 'font-medium text-primary' : ''}`}>
                     {formatCountMetric(key, value, locale)}
                   </td>
                 )

@@ -16,7 +16,7 @@ export function DatasetChapter() {
 
       {/* Source register: kind on the left, details and link on the right */}
       <div className="mt-12">
-        <h3 className="border-b border-foreground/80 pb-3 font-semibold">{dataset.sourcesHeading}</h3>
+        <h3 className="border-b border-foreground/80 pb-3 font-medium">{dataset.sourcesHeading}</h3>
         <ul>
           {dataset.sources.map((source) => (
             <li
@@ -25,7 +25,7 @@ export function DatasetChapter() {
             >
               <p className="text-sm text-muted sm:pt-1">{dataset.sourceKind}</p>
               <div className="min-w-0">
-                <p className="text-lg font-semibold">{source.name}</p>
+                <p className="text-lg font-medium">{source.name}</p>
                 <p className="text-sm text-muted">{source.origin}</p>
                 <p className="mt-2 max-w-[62ch] leading-relaxed">{source.description}</p>
                 <a

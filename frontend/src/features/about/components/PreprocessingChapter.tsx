@@ -18,11 +18,11 @@ export function PreprocessingChapter() {
               key={step.id}
               className="grid grid-cols-[3rem_minmax(0,1fr)] gap-x-4 border-b border-border py-6 sm:grid-cols-[4rem_minmax(0,1fr)]"
             >
-              <span aria-hidden="true" className="text-2xl font-bold text-primary tabular-nums sm:text-3xl">
+              <span aria-hidden="true" className="font-display text-2xl text-primary tabular-nums sm:text-3xl">
                 {number}
               </span>
               <div>
-                <p className="text-lg font-semibold">{step.title}</p>
+                <p className="text-lg font-medium">{step.title}</p>
                 <p className="mt-1 max-w-[62ch] leading-relaxed text-muted">{step.description}</p>
               </div>
             </li>

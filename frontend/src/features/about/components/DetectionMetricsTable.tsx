@@ -15,13 +15,13 @@ export function DetectionMetricsTable({ info }: { info: ModelInfo }) {
       <caption className="sr-only">{evaluation.detectionHeading}</caption>
       <thead>
         <tr className="border-b border-foreground/80 text-sm text-muted">
-          <th scope="col" className="py-3 pr-4 pl-3 font-normal">
+          <th scope="col" className="py-3 pr-4 pl-3">
             {evaluation.detectionColumns.metric}
           </th>
-          <th scope="col" className="px-3 py-3 text-right font-normal">
+          <th scope="col" className="px-3 py-3 text-right">
             {evaluation.detectionColumns.val}
           </th>
-          <th scope="col" className="px-3 py-3 text-right font-normal">
+          <th scope="col" className="px-3 py-3 text-right">
             {evaluation.detectionColumns.test}
           </th>
         </tr>

@@ -4,7 +4,6 @@ import type { Localized } from '@/app/providers/localeContext'
 export interface NavigationContent {
   brand: {
     name: string
-    tagline: string
   }
   menuItems: { id: string; label: string; path: AppPath }[]
   footer: {
@@ -21,7 +20,6 @@ export const navigationContent: Localized<NavigationContent> = {
   id: {
     brand: {
       name: 'Pilltally',
-      tagline: 'Penghitung Pil Otomatis',
     },
     menuItems: [
       { id: 'home', label: 'Beranda', path: PATHS.home },
@@ -41,7 +39,6 @@ export const navigationContent: Localized<NavigationContent> = {
   en: {
     brand: {
       name: 'Pilltally',
-      tagline: 'Automated Pill Counter',
     },
     menuItems: [
       { id: 'home', label: 'Home', path: PATHS.home },

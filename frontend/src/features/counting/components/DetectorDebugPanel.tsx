@@ -62,7 +62,7 @@ export function DetectorDebugPanel() {
 
   return (
     <section className="space-y-4 rounded-xl border border-dashed border-border p-4 text-sm">
-      <h2 className="font-semibold">{debug.title}</h2>
+      <h2 className="font-medium">{debug.title}</h2>
       <DetectorStatus state={state} onRetry={retry} />
       {state.status === 'error' && <p className="font-mono text-xs text-danger">{state.message}</p>}
 
