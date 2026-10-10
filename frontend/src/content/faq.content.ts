@@ -19,13 +19,13 @@ export const faqContent: Localized<FaqContent> = {
         id: 'what',
         question: 'Apa itu Pilltally?',
         answer:
-          'Pilltally adalah aplikasi web untuk menghitung pil secara otomatis. Cukup arahkan kamera atau unggah foto atau video, lalu Pilltally menandai setiap pil dan menampilkan jumlahnya.',
+          'Pilltally adalah platform penghitung pil otomatis berbasis kecerdasan buatan yang mendeteksi dan menghitung obat tablet serta kapsul secara instan melalui computer vision untuk mendukung efisiensi dan verifikasi farmasi.',
       },
       {
         id: 'how-it-works',
         question: 'Bagaimana cara kerja Pilltally?',
         answer:
-          'Pilltally memakai model kecerdasan buatan (YOLO26n) yang dilatih untuk mengenali pil. Model memberi kotak pada setiap pil yang terlihat, lalu jumlah kotak itulah yang menjadi jumlah pil.',
+          'Pilltally memproses frame citra (640×640 px) menggunakan model deteksi objek YOLO26n yang dieksekusi via ONNX Runtime (WebGPU/WASM di browser atau server). Bounding box hasil prediksi disaring dengan ambang keyakinan dan Non-Maximum Suppression (NMS) sebelum dihitung secara instan berdasarkan area yang ditentukan.',
       },
       {
         id: 'modes',
@@ -34,28 +34,28 @@ export const faqContent: Localized<FaqContent> = {
           'Ada tiga cara: kamera live dari HP atau laptop, unggah gambar, dan unggah video. Semuanya ada di halaman Hitung.',
       },
       {
-        id: 'accuracy',
-        question: 'Apakah hasil hitung Pilltally akurat?',
-        answer:
-          'Pada data uji (335 gambar), 99,4% gambar dihitung tepat, dan sisanya hanya meleset 1 pil. Namun model belum diuji dengan foto HP sehari-hari, jadi hasil di lapangan bisa berbeda. Untuk hasil terbaik, gunakan cahaya terang dan latar polos, dan jangan biarkan pil bertumpuk.',
-      },
-      {
         id: 'area',
         question: 'Apakah saya dapat menentukan area yang ingin dihitung?',
         answer:
           'Bisa. Aktifkan area hitung, lalu geser 4 titik sudutnya ke sekeliling pil. Hanya pil di dalam area yang dihitung, dan area yang sama berlaku untuk kamera, gambar, dan video.',
       },
       {
+        id: 'accuracy',
+        question: 'Apakah hasil hitung Pilltally akurat?',
+        answer:
+          'Keakuratan deteksi dan perhitungan dipengaruhi oleh kualitas citra, pencahayaan, sudut kamera, karakteristik objek, serta keterbatasan model komputasi. Pilltally memiliki keterbatasan sehingga kemungkinan kesalahan tetap ada, dan hasil hitung harus selalu diverifikasi secara manual.',
+      },
+      {
         id: 'limitations',
         question: 'Apa saja keterbatasan Pilltally?',
         answer:
-          'Pil yang bertumpuk, sangat kecil, atau berwarna mirip dengan latarnya bisa terlewat. Hasil juga dipengaruhi cahaya, sudut kamera, dan kualitas gambar. Pilltally adalah alat bantu, jadi untuk penyerahan obat selalu periksa ulang secara manual.',
+          'Akibat keterbatasan dataset pelatihan dan model komputasi, sistem dapat mengalami penurunan akurasi pada pil yang saling bertumpuk (oklusi), berukuran sangat kecil, atau memiliki kontras warna rendah terhadap latar. Sebagai sistem pendukung, verifikasi manual oleh tenaga farmasi tetap diwajibkan sebelum penyerahan obat.',
       },
       {
         id: 'privacy',
         question: 'Bagaimana kebijakan privasi dan keamanan data pengguna?',
         answer:
-          'Pilltally tidak memakai akun dan tidak menyimpan foto atau video. Kamera dan video diproses langsung di perangkat Anda tanpa dikirim ke server. Gambar yang diunggah dikirim ke server hanya untuk dihitung, lalu langsung dibuang.',
+          'Pilltally menerapkan prinsip privasi sejak perancangan (privacy-by-design) tanpa memerlukan registrasi akun. Aliran kamera dan video diproses sepenuhnya di sisi perangkat (on-device) tanpa transmisi ke server. Berkas gambar yang diunggah hanya diproses secara temporer di memori dan langsung dihapus setelah inferensi tanpa retensi data.',
       },
     ],
   },
@@ -66,13 +66,13 @@ export const faqContent: Localized<FaqContent> = {
         id: 'what',
         question: 'What is Pilltally?',
         answer:
-          'Pilltally is a web app that counts pills automatically. Point your camera or upload a photo or video, and Pilltally marks every pill and shows the count.',
+          'Pilltally is an AI-powered automated pill counting platform that instantly detects and counts tablets and capsules using computer vision to support pharmacy efficiency and verification.',
       },
       {
         id: 'how-it-works',
         question: 'How does Pilltally work?',
         answer:
-          'Pilltally uses an AI model (YOLO26n) trained to recognize pills. The model puts a box on every visible pill, and the number of boxes is the pill count.',
+          'Pilltally processes image frames (640×640 px) using a YOLO26n object detection model executed via ONNX Runtime (WebGPU/WASM in the browser or server backend). Predicted bounding boxes are filtered using confidence thresholding and Non-Maximum Suppression (NMS) before tallying pills within the designated area in real time.',
       },
       {
         id: 'modes',
@@ -81,28 +81,28 @@ export const faqContent: Localized<FaqContent> = {
           'There are three: live camera on a phone or laptop, image upload, and video upload. All of them are on the Count page.',
       },
       {
-        id: 'accuracy',
-        question: 'Is the Pilltally count accurate?',
-        answer:
-          'On the test data (335 images), 99.4% of images were counted exactly, and the rest were off by only 1 pill. However, the model has not been tested on everyday phone photos yet, so real-world results may differ. For the best results, use bright light and a plain background, and do not let pills overlap.',
-      },
-      {
         id: 'area',
         question: 'Can I choose the area to count?',
         answer:
           'Yes. Turn on the counting area, then drag its 4 corner points around the pills. Only pills inside the area are counted, and the same area works for camera, image, and video.',
       },
       {
+        id: 'accuracy',
+        question: 'Is the Pilltally count accurate?',
+        answer:
+          'Detection and counting accuracy is affected by image quality, lighting, camera angle, object characteristics, and model limitations. Errors can still occur, so results should always be verified manually.',
+      },
+      {
         id: 'limitations',
         question: 'What are the limitations of Pilltally?',
         answer:
-          'Pills that overlap, are very small, or have a color close to the background can be missed. Results also depend on lighting, camera angle, and image quality. Pilltally is an aid, so always double-check by hand before dispensing medicine.',
+          'Due to training dataset and model limitations, detection accuracy may decrease when pills overlap (occlusion), are exceptionally small, or have low color contrast against the background. As an assistive tool, manual verification by pharmacy personnel remains mandatory prior to dispensing medication.',
       },
       {
         id: 'privacy',
         question: 'How is user privacy and data security handled?',
         answer:
-          'Pilltally has no accounts and does not store photos or videos. Camera and video are processed on your device and never sent to the server. Uploaded images are sent to the server only to be counted, then discarded right away.',
+          'Pilltally is built on privacy-by-design principles and requires no user registration. Live camera and video streams are processed entirely on-device without transmitting visual data to servers. Uploaded images are processed strictly in memory and deleted immediately after inference with no data retention.',
       },
     ],
   },

@@ -16,7 +16,7 @@ export function FaqSection() {
       <div className="border-t border-foreground/70 lg:col-span-7">
         {items.map((item) => (
           <Accordion key={item.id} title={item.question}>
-            <p className="max-w-[62ch] leading-relaxed">{item.answer}</p>
+            <p className="max-w-[62ch] leading-relaxed whitespace-pre-line">{item.answer}</p>
           </Accordion>
         ))}
       </div>
