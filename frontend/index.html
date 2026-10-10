@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pilltally</title>
+    <script>
+      // Set the theme before the page is drawn, so dark mode does not flash white.
+      // Same rule as src/app/providers/ThemeProvider.tsx
+      try {
+        var saved = localStorage.getItem('pilltally-theme')
+        var systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches
+        var followSystem = saved !== 'light' && saved !== 'dark'
+        if (saved === 'dark' || (followSystem && systemDark)) {
+          document.documentElement.classList.add('dark')
+        }
+      } catch (error) {}
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

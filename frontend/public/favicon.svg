@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+  <!-- Pilltally mark (same as components/brand/BrandMark.tsx), drawn thicker so it
+       stays clear at 16px: a counting frame around one pill, with the iris corner handle.
+       Colors follow the browser theme: ink on light tabs, plaster on dark tabs. -->
+  <style>
+    .frame { fill: none; stroke: #1c1b18; stroke-width: 3; }
+    .pill { fill: #1c1b18; }
+    .handle { fill: #2b45a0; }
+    @media (prefers-color-scheme: dark) {
+      .frame { stroke: #e8e3d7; }
+      .pill { fill: #e8e3d7; }
+      .handle { fill: #9db0f2; }
+    }
+  </style>
+  <rect class="frame" x="3" y="3" width="22" height="22" />
+  <ellipse class="pill" cx="14" cy="14" rx="6.5" ry="4" />
+  <rect class="handle" x="21" y="21" width="10" height="10" />
+</svg>
