@@ -52,7 +52,7 @@ export function HeroSection() {
                 {/* Announced only after the opening sequence */}
                 <span
                   aria-live={tray.isIntro ? 'off' : 'polite'}
-                  className="font-display text-6xl leading-none text-primary tabular-nums md:text-7xl"
+                  className="font-display text-5xl leading-none text-primary tabular-nums md:text-7xl"
                 >
                   {tray.shownCount}
                 </span>

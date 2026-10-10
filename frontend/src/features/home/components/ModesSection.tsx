@@ -19,23 +19,23 @@ export function ModesSection() {
   const { modes } = useLocalized(homeContent)
 
   return (
-    <SectionContainer className="grid gap-10 md:py-20 lg:grid-cols-12">
+    <SectionContainer className="grid gap-10 lg:gap-x-14 md:py-20 short:py-10 lg:grid-cols-12">
       {/* Laptops: heading and intro stay in view while the rows scroll, like the FAQ */}
-      <div className="lg:col-span-4">
+      <div className="lg:col-span-5">
         <div className="lg:sticky lg:top-24">
           <h2 className="text-4xl leading-[1.1] md:text-5xl">{modes.heading}</h2>
           <p className="mt-5 max-w-sm text-lg leading-relaxed text-muted">{modes.intro}</p>
         </div>
       </div>
 
-      <ul className="border-t border-foreground/70 lg:col-span-8">
+      <ul className="border-t border-foreground/70 lg:col-span-7">
         {modes.items.map((mode) => {
           const Icon = MODE_ICONS[mode.id]
           return (
             <li key={mode.id} className="border-b border-border">
               <Link
                 to={`${PATHS.count}?mode=${mode.id}`}
-                className="group grid grid-cols-[3rem_minmax(0,1fr)_auto] items-center gap-x-6 py-8"
+                className="group grid grid-cols-[3rem_minmax(0,1fr)_auto] items-center gap-x-6 py-8 short:py-6"
               >
                 <span className="flex size-12 items-center justify-center border border-foreground/60 transition-colors duration-300 group-hover:border-primary group-hover:text-primary">
                   <Icon className="size-5" strokeWidth={1.25} aria-hidden="true" />
