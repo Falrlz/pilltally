@@ -21,10 +21,10 @@ Counting tablets by hand takes time, and it is easy to lose track halfway throug
 
 ## Preview
 
-### Home
-![Pilltally home page](.github/assets/Pilltally-home.gif)
+### Homepage
+![Pilltally homepage](.github/assets/Pilltally-home.gif)
 
-### Counting
+### Real-Time Detection & Counting
 ![Counting pills with Pilltally](.github/assets/Pilltally-count.gif)
 
 ---
